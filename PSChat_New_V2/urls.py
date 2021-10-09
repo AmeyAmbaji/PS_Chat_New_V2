@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings
+from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from personal.views import (
@@ -25,15 +26,18 @@ from account.views import (
     register_view,
     login_view,
     logout_view,
+    account_search_view,
 
 )
 
 urlpatterns = [
     path('', home_screen_view, name='home'),
+    path('account/', include('account.urls', namespace = 'account')),
     path('admin/', admin.site.urls),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name="logout"),
     path('register/', register_view, name="register"),
+    path('search/', account_search_view, name="search"),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_reset/password_change_done.html'), name='password_change_done'),
     path('password_change/', auth_views.PasswordChangeView.as_view(template_name='password_reset/password_change.html'), name='password_change'),
     path('password_reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset/password_reset_done.html'), name='password_reset_done'),
