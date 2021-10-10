@@ -161,7 +161,7 @@
 			<div class="card m-2 px-4 pb-4">
 				<!-- Friend requests -->
 		  		<div class="d-flex flex-column pt-4">
-					<a href="#">
+					<a href="{% url 'friend:friend-requests' user_id=id %}">
 						<div class="d-flex flex-row align-items-center justify-content-center icon-container">
 							<span class="material-icons mr-2 person-add-icon">person_add</span><span class="friend-text">Friend Requests ({{friend_requests|length}})</span>
 						</div>
@@ -235,7 +235,7 @@
 	}
 
 	function triggerAcceptFriendRequest(friend_request_id){
-		//acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
+		acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
 	}
 
 	function triggerDeclineFriendRequest(friend_request_id){
@@ -245,7 +245,7 @@
 </script>
 
 {% include 'friend/snippets/send_friend_request.html' %}
-{#% include 'snippets/accept_friend_request.html' %#}
+{% include 'friend/snippets/accept_friend_request.html' %}
 {#% include 'snippets/decline_friend_request.html' %#}
 {#% include 'snippets/cancel_friend_request.html' %#}
 {#% include 'snippets/remove_friend.html' %#}
