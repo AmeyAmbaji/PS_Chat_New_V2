@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'personal',
     'account',
     'friend',
+    'public_chat',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -83,6 +84,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'PSChat_New_V2.wsgi.application'
+ASGI_APPLICATION = 'PSChat_New_V2.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Database
@@ -101,6 +111,8 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+
 
 CHANNEL_LAYERS = {
     'default': {
