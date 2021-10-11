@@ -3,7 +3,6 @@
 
 {% block content %}
 
-
 <style type="text/css">
 	.profile-image{
 		max-height: 100px;
@@ -39,31 +38,34 @@
 	.cancel-icon{
 		color: red;
 	}
+	
 </style>
 
 <div class="container">
 	<div class="card p-2">
 
-		{% if accounts %}
+		{% if friends %}
 		<div class="d-flex flex-row flex-wrap">
-		{% for account in accounts %}
+		{% for friend in friends %}
 		<div class="card flex-row flex-grow-1 p-2 mx-2 my-2 align-items-center">
-			<a class="profile-link" href="{% url 'account:view' user_id=account.0.id %}">
+			<a class="profile-link" href="{% url 'account:view' user_id=friend.0.pk %}">
 				<div class="card-image m-2">
-					<img class="img-fluid profile-image" src="{{account.0.profile_image.url}}" alt="">
+					<img class="img-fluid profile-image" src="{{friend.0.profile_image.url}}" alt="">
 				</div>
 			</a>
-			<a class="profile-link" href="{% url 'account:view' user_id=account.0.id %}">
-				<div class="card-center px-2">
-					<h4 class="card-title">{{account.0.username}}</h4>
-					{% if account.1 %}
-					<p class="card-text"><a href="#" onclick="createOrReturnPrivateChat('{{account.0.id}}')">Send a Message</a></p>
-					{% endif %}
-					
-				</div>
-			</a>
+			
+			<div class="card-center px-2">
+				<a class="profile-link" href="{% url 'account:view' user_id=friend.0.pk %}">
+					<h4 class="card-title">{{friend.0.username|truncatechars:50}}</h4>
+				</a>
+				{% if friend.1 %}
+				<a href="#" onclick="createOrReturnPrivateChat('{{friend.0.id}}')">Send a Message</a>
+				{% endif %}
+				
+			</div>
+			
 			<div class="d-flex flex-row card-right flex-grow-1 justify-content-end mx-2">
-				{% if account.1 %}
+				{% if friend.1 %}
 					<div class="d-flex flex-row friends-text-container p-3">
 						<p class="friends-text m-auto">
 							Friends 
@@ -73,7 +75,7 @@
 						</span>
 					</div>
 				{% else %}
-					{% if account.0 !=  request.user %}
+					{% if friend.0 !=  request.user %}
 						<div class="d-flex flex-row friends-text-container p-3">
 							<p class="friends-text m-auto">
 								Not Friends 
@@ -82,7 +84,7 @@
 						</div>
 					{% endif %}
 				{% endif %}
-				{% if account.0 == request.user %}
+				{% if friend.0 == request.user %}
 					<div class="d-flex flex-row friends-text-container p-3">
 						<p class="friends-text m-auto">
 							This is you 
@@ -102,7 +104,7 @@
 		
 		{% else %} <!-- If no friends -->
 		<div class="d-flex flex-row flex-grow-1 justify-content-center align-items-center p-4">
-			<p>No results</p>
+			<p>No friends :(</p>
 		</div>
 		{% endif %}
 		</div>
@@ -110,13 +112,7 @@
 	
 </div>
 
-
 {#%  include 'chat/create_or_return_private_chat.html' %#}
 
-<script type="text/javascript">
-	function createOrReturnPrivateChat(user_id){
-		// Just a placeholder
-	}
-</script>
 
 {% endblock content %}
