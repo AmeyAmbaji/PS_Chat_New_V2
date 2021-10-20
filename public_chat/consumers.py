@@ -1,5 +1,6 @@
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 import json
+from asgiref.sync import async_to_sync
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -12,7 +13,7 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
 		"""
 		Called when the websocket is handshaking as part of initial connection.
 		"""
-		print("PublicChatConsumer: connect: " + str(self.scope["user"]))
+		print("PublicChatConsumer: connect: " + str(self.scope['user']))
 		# let everyone connect. But limit read/write to authenticated users
 		await self.accept()
 		
@@ -23,7 +24,7 @@ class PublicChatConsumer(AsyncJsonWebsocketConsumer):
 		)
 
 
-	async def disconnect(self, code):
+	async def disconnect(self):
 		"""
 		Called when the WebSocket closes for any reason.
 		"""
