@@ -42,7 +42,7 @@
 		// Correctly decide between ws:// and wss://
 		var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 		{% if debug_mode %}
-			var ws_path = ws_scheme + "://" + window.location.host + "/public_chat/{{room_id}}/"; // development
+			var ws_path = ws_scheme + "://" + window.location.host + "ws/public_chat/{{room_id}}/"; // development
 		{% else %}
 			var ws_path = ws_scheme + "://" + window.location.host + ":8081/public_chat/{{room_id}}/"; // production
 		{% endif %}
