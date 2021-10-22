@@ -8,7 +8,7 @@ application = ProtocolTypeRouter({
 	'websocket': AllowedHostsOriginValidator(
 		AuthMiddlewareStack(
 			URLRouter([
-					path('public_chat/(?P<room_id>\w+/$', PublicChatConsumer.as_asgi()),
+					path('public_chat/<room_id>/', PublicChatConsumer.as_asgi()),
 			])
 		)
 	),
